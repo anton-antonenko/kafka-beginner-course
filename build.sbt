@@ -13,7 +13,7 @@ lazy val commonSettings = Seq(
 
 
 lazy val root = (project in file("."))
-  .aggregate(basics, `twitter-producer`, `elasticsearch-consumer`)
+  .aggregate(basics, `twitter-producer`, `elasticsearch-consumer`, `streams-filter-tweets`)
   .settings(
     commonSettings,
     name := "kafka-training"
@@ -53,6 +53,18 @@ lazy val `elasticsearch-consumer` = (project in file("elasticsearch-consumer"))
       "org.apache.kafka" % "kafka-clients" % kafkaVersion,
       "org.slf4j" % "slf4j-simple" % slf4jVersion,
       "org.elasticsearch.client" % "elasticsearch-rest-high-level-client" % elasticClientVersion,
+      "com.google.code.gson" % "gson" % gsonVersion
+    )
+  )
+
+
+lazy val `streams-filter-tweets` = (project in file("streams-filter-tweets"))
+  .settings(
+    name := "streams-filter-tweets",
+    commonSettings,
+    libraryDependencies ++= Seq(
+      "org.apache.kafka" % "kafka-streams" % kafkaVersion,
+      "org.slf4j" % "slf4j-simple" % slf4jVersion,
       "com.google.code.gson" % "gson" % gsonVersion
     )
   )
